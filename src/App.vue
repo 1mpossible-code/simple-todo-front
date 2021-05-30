@@ -1,10 +1,10 @@
 <template>
-  <div>Simple TODO app</div>
+  <div class="logo">Simple TODO app</div>
   <create-task/>
 </template>
 
 <script>
-import CreateTask from "@/components/CreateTask";
+import CreateTask from "./components/CreateTask";
 
 export default {
   name: "App",
@@ -14,13 +14,9 @@ export default {
 };
 </script>
 
-<style>
-#app {
-  font-family: "Open Sans", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+<style scoped>
+.logo {
+  font-size: 36px;
+  margin-bottom: 2rem;
 }
 </style>
