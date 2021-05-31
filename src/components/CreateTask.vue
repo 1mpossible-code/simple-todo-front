@@ -13,20 +13,23 @@
 
 <script>
 import { ref } from "vue";
+import { useStore } from "vuex";
 
 export default {
   name: "CreateTask",
 
   setup() {
-    const message = ref("");
+    const store = useStore();
+    const body = ref("");
 
     const click = () => {
-      console.log("clicked", message.value);
+      store.dispatch("tasks/add", body.value);
+      body.value = "";
     };
 
     return {
       click,
-      message,
+      message: body,
     };
   },
 };
