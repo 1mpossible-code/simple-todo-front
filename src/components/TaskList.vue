@@ -1,6 +1,6 @@
 <template>
   <div>TaskList</div>
-  <div v-for="task in tasks" :key="task.id">
+  <div v-for="task in tasks" :key="task.id" class="task-list">
     <tasks-list-item>
       <template v-slot:content>{{ task.body }}</template>
     </tasks-list-item>
@@ -31,4 +31,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.task-list {
+  width: 60%;
+  margin: auto;
+}
+</style>
