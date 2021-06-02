@@ -1,24 +1,38 @@
 <template>
   <div class="task-list-item" :class="{ completed }">
     <input type="checkbox" v-model="completed" :class="{ completed }" />
-    <slot name="content" class="content" />
+    <div class="content">{{ task.body }}</div>
   </div>
 </template>
 
 <script>
-import { ref, watch } from "vue";
+import { computed, ref, watch } from "vue";
+import { useStore } from "vuex";
 
 export default {
   name: "TasksListItem",
-  setup() {
+  props: {
+    taskId: {
+      type: Number,
+      required: true,
+    },
+  },
+  setup(props) {
+    // Use vuex store
+    const store = useStore();
+    // Create completed model
     const completed = ref(false);
-    watch(completed, (value) => {
-      // TODO: Update completed in store
-      console.log(value);
+    // Create computed task getter depending on props id
+    const task = computed(() => store.getters["tasks/getById"](props.taskId));
+    // Watch for changing completed module and toggle the task.completed value depending on it
+    watch(completed, () => {
+      // Toggle completed value
+      store.dispatch("tasks/toggleComplete", props.taskId);
     });
 
     return {
       completed,
+      task,
     };
   },
 };
@@ -42,5 +56,6 @@ input {
 .completed {
   color: gray;
   background-color: #eee;
+  text-decoration: line-through;
 }
 </style>

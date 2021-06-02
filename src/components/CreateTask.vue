@@ -23,7 +23,7 @@ export default {
     const body = ref("");
 
     const click = () => {
-      store.dispatch("tasks/add", body.value);
+      store.dispatch("tasks/add", { body: body.value, completed: false });
       body.value = "";
     };
 
