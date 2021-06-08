@@ -13,17 +13,17 @@ export default {
   name: "TasksListItem",
   props: {
     taskId: {
-      type: Number,
+      type: String,
       required: true,
     },
   },
   setup(props) {
     // Use vuex store
     const store = useStore();
-    // Create completed model
-    const completed = ref(false);
     // Create computed task getter depending on props id
     const task = computed(() => store.getters["tasks/getById"](props.taskId));
+    // Create completed model
+    const completed = ref(task.value.completed);
     // Watch for changing completed module and toggle the task.completed value depending on it
     watch(completed, () => {
       // Toggle completed value
@@ -42,7 +42,7 @@ export default {
 .task-list-item {
   border: 1px solid silver;
   padding: 0.5rem;
-  margin: 2rem 5rem;
+  margin: 1rem 5rem;
   border-radius: 10px;
   display: flex;
   color: darkcyan;

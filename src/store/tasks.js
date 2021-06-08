@@ -1,3 +1,5 @@
+import {apiConfig} from "../../config/api.config.js";
+
 export const tasks = {
   namespaced: true,
 
@@ -8,50 +10,51 @@ export const tasks = {
     setTasks(state, tasks) {
       state.all = tasks;
     },
-    addTask(state, { body, completed }) {
-      state.all.push({
-        id: state.all.length + 1,
-        body,
-        completed,
-      });
+    addTask(state, task) {
+      state.all.push(task);
     },
-    markCompletedAs(state, { id, value }) {
-      state.all.find((x) => x.id === id).completed = value;
+    markCompletedAs(state, { _id, value }) {
+      state.all.find((x) => x._id === _id).completed = value;
     },
   },
   actions: {
-    fetch(ctx) {
-      // TODO: Real fetching tasks
-      const tasks = [
-        {
-          id: 1,
-          body: "Label",
-          completed: false,
-        },
-        {
-          id: 2,
-          body: "Label 2",
-          completed: false,
-        },
-      ];
-      ctx.commit("setTasks", tasks);
+    async fetch(ctx) {
+      const tasks = await fetch(apiConfig.url);
+      const tasksJson = await tasks.json();
+      ctx.commit("setTasks", tasksJson);
     },
-    add(ctx, task) {
-      // TODO: Add task to DB
-      ctx.commit("addTask", { body: task.body, completed: task.completed });
+    async add(ctx, task) {
+      // Create request options
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ body: task.body, completed: task.completed }),
+      };
+      // Write new task with api and get written task
+      const resp = await fetch(apiConfig.url, requestOptions);
+      ctx.commit("addTask", await resp.json());
     },
-    toggleComplete(ctx, id) {
-      // TODO: Complete task in DB
-      ctx.commit("markCompletedAs", {
-        id,
-        value: !ctx.getters.getById(id).completed,
-      });
+    async toggleComplete(ctx, _id) {
+      const task = ctx.getters.getById(_id);
+      const requestOptions = {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ completed: !task.completed }),
+      };
+      const resp = await fetch(`${apiConfig.url}/${_id}/`, requestOptions);
+      const json = await resp.json();
+      if (json['nModified'] === 1) {
+        ctx.commit("markCompletedAs", {
+          _id,
+          value: !task.completed,
+        });
+      }
     },
   },
 
   getters: {
-    getById: (state) => (id) => {
-      return state.all.find((x) => x.id === id);
+    getById: (state) => (_id) => {
+      return state.all.find((x) => x._id === _id);
     },
   },
 };

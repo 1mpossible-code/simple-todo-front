@@ -1,7 +1,7 @@
 <template>
   <div>TaskList</div>
-  <div v-for="task in tasks" :key="task.id" class="task-list">
-    <tasks-list-item :taskId="task.id" />
+  <div v-for="task in tasks" :key="task._id" class="task-list">
+    <tasks-list-item :taskId="task._id" />
   </div>
 </template>
 
@@ -17,8 +17,8 @@ export default {
     const store = useStore();
     const tasks = ref([]);
 
-    onMounted(() => {
-      store.dispatch("tasks/fetch");
+    onMounted(async () => {
+      await store.dispatch("tasks/fetch");
       tasks.value = store.state.tasks.all;
     });
 

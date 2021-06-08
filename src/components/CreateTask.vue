@@ -22,8 +22,8 @@ export default {
     const store = useStore();
     const body = ref("");
 
-    const click = () => {
-      store.dispatch("tasks/add", { body: body.value, completed: false });
+    const click = async () => {
+      await store.dispatch("tasks/add", { body: body.value, completed: false });
       body.value = "";
     };
 
