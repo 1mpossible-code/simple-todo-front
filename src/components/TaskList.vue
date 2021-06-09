@@ -1,5 +1,5 @@
 <template>
-  <div>TaskList</div>
+  <div class="title">Tasks</div>
   <div v-for="task in tasks" :key="task._id" class="task-list">
     <tasks-list-item :taskId="task._id" />
   </div>
@@ -29,6 +29,13 @@ export default {
 </script>
 
 <style scoped>
+.title {
+  font-size: 24px;
+  margin-top: 1rem;
+  border-bottom: 1px solid silver;
+  padding-bottom: 1rem;
+}
+
 .task-list {
   width: 60%;
   margin: auto;
