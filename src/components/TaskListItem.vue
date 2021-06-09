@@ -2,6 +2,7 @@
   <div class="task-list-item" :class="{ completed }">
     <input type="checkbox" v-model="completed" :class="{ completed }" />
     <div class="content">{{ task.body }}</div>
+    <button class="delete" @click="deleteTask">DELETE</button>
   </div>
 </template>
 
@@ -30,9 +31,14 @@ export default {
       store.dispatch("tasks/toggleComplete", props.taskId);
     });
 
+    const deleteTask = () => {
+      store.dispatch("tasks/destroy", props.taskId);
+    };
+
     return {
       completed,
       task,
+      deleteTask,
     };
   },
 };
@@ -57,5 +63,18 @@ input {
   color: gray;
   background-color: #eee;
   text-decoration: line-through;
+}
+
+.delete {
+  margin-left: auto;
+  float: right;
+  color: red;
+  border: none;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.delete:hover {
+  text-decoration: underline;
 }
 </style>
