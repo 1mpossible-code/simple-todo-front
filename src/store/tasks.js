@@ -1,4 +1,4 @@
-import {apiConfig} from "../../config/api.config.js";
+import { apiConfig } from "../../config/api.config.js";
 
 export const tasks = {
   namespaced: true,
@@ -8,13 +8,23 @@ export const tasks = {
   },
   mutations: {
     setTasks(state, tasks) {
-      state.all = tasks;
+      tasks = tasks.reverse();
+      const uncompleted = tasks.filter((x) => !x.completed);
+      const completed = tasks.filter((x) => x.completed);
+      state.all = uncompleted.concat(completed);
     },
     addTask(state, task) {
-      state.all.push(task);
+      state.all.unshift(task);
     },
     markCompletedAs(state, { _id, value }) {
-      state.all.find((x) => x._id === _id).completed = value;
+      // Find task with specified _id
+      const task = state.all.find((x) => x._id === _id);
+      task.completed = value;
+      // Find idx of remove task
+      const idx = state.all.indexOf(task);
+      // Removed task
+      const removedTask = state.all.splice(idx, 1)[0];
+      state.all.push(removedTask);
     },
     removeTask(state, _id) {
       // Find task with specified _id
@@ -55,11 +65,8 @@ export const tasks = {
       };
       const resp = await fetch(`${apiConfig.url}/${_id}/`, requestOptions);
       const json = await resp.json();
-      if (json['nModified'] === 1) {
-        ctx.commit("markCompletedAs", {
-          _id,
-          value: !task.completed,
-        });
+      if (json["nModified"] === 1) {
+        await ctx.dispatch("fetch");
       }
     },
     async destroy(ctx, _id) {
@@ -68,8 +75,7 @@ export const tasks = {
       };
       const resp = await fetch(`${apiConfig.url}/${_id}/`, requestOptions);
       const json = await resp.json();
-      console.log(json);
-      if (json['deletedCount'] === 1) {
+      if (json["deletedCount"] === 1) {
         ctx.commit("removeTask", _id);
       }
     },

@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import { onMounted, ref } from "vue";
+import { computed, onMounted } from "vue";
 import { useStore } from "vuex";
 import TasksListItem from "./TaskListItem.vue";
 
@@ -15,11 +15,10 @@ export default {
   components: { TasksListItem },
   setup() {
     const store = useStore();
-    const tasks = ref([]);
+    const tasks = computed(() => store.state.tasks.all);
 
     onMounted(async () => {
       await store.dispatch("tasks/fetch");
-      tasks.value = store.state.tasks.all;
     });
 
     return {
