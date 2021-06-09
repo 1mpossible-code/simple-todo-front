@@ -62,6 +62,9 @@ input {
 .completed {
   color: gray;
   background-color: #eee;
+}
+
+.completed .content {
   text-decoration: line-through;
 }
 
@@ -70,7 +73,7 @@ input {
   float: right;
   color: red;
   border: none;
-  background-color: #fff;
+  background: none;
   cursor: pointer;
 }
 
