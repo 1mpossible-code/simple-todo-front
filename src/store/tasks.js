@@ -1,4 +1,4 @@
-import { apiConfig } from "../../config/api.config.js";
+import { config } from "../../config";
 
 export const tasks = {
   namespaced: true,
@@ -38,7 +38,7 @@ export const tasks = {
   actions: {
     // Fetch tasks from api
     async fetch(ctx) {
-      const tasks = await fetch(apiConfig.url);
+      const tasks = await fetch(config.url);
       const tasksJson = await tasks.json();
       ctx.commit("setTasks", tasksJson);
     },
@@ -51,7 +51,7 @@ export const tasks = {
         body: JSON.stringify({ body: task.body, completed: task.completed }),
       };
       // Write new task with api and get written task
-      const resp = await fetch(apiConfig.url, requestOptions);
+      const resp = await fetch(config.url, requestOptions);
       ctx.commit("addTask", await resp.json());
     },
     // Toggle completed param in
@@ -63,7 +63,7 @@ export const tasks = {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ completed: !task.completed }),
       };
-      const resp = await fetch(`${apiConfig.url}/${_id}/`, requestOptions);
+      const resp = await fetch(`${config.url}/${_id}/`, requestOptions);
       const json = await resp.json();
       if (json["nModified"] === 1) {
         await ctx.dispatch("fetch");
@@ -73,7 +73,7 @@ export const tasks = {
       const requestOptions = {
         method: "DELETE",
       };
-      const resp = await fetch(`${apiConfig.url}/${_id}/`, requestOptions);
+      const resp = await fetch(`${config.url}/${_id}/`, requestOptions);
       const json = await resp.json();
       if (json["deletedCount"] === 1) {
         ctx.commit("removeTask", _id);
