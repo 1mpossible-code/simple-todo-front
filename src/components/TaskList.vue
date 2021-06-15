@@ -32,7 +32,6 @@ export default {
 .title {
   font-size: 24px;
   margin-top: 1rem;
-  border-bottom: 1px solid silver;
   padding-bottom: 1rem;
 }
 
