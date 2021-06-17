@@ -12,10 +12,23 @@ import TasksListItem from "./TaskListItem.vue";
 
 export default {
   name: "TaskList",
+  props: {
+    completed: {
+      type: Boolean,
+      default: null,
+    },
+  },
   components: { TasksListItem },
-  setup() {
+  setup(props) {
+    console.log(props.completed);
     const store = useStore();
-    const tasks = computed(() => store.state.tasks.all);
+    console.log(store.getters["tasks/getCompleted"]);
+    const tasks = computed(() => {
+      if (props.completed === null) return store.state.tasks.all;
+      if (props.completed) return store.getters["tasks/getCompleted"];
+      if (!props.completed) return store.getters["tasks/getUncompleted"];
+      return null;
+    });
 
     onMounted(async () => {
       await store.dispatch("tasks/fetch");

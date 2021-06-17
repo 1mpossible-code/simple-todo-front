@@ -83,7 +83,13 @@ export const tasks = {
 
   getters: {
     getById: (state) => (_id) => {
-      return state.all.find((x) => x._id === _id);
+      return state.all.find((task) => task._id === _id);
+    },
+    getCompleted: (state) => {
+      return state.all.filter((task) => task.completed);
+    },
+    getUncompleted: (state) => {
+      return state.all.filter((task) => !task.completed);
     },
   },
 };
