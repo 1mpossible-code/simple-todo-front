@@ -1,5 +1,5 @@
 <template>
-  <div class="create-task">
+  <form class="create-task">
     <div class="label">
       <label for="newTask">New Task</label>
     </div>
@@ -8,7 +8,7 @@
       <input type="text" id="newTask" v-model="message" />
       <button @click.prevent="click">Create!</button>
     </div>
-  </div>
+  </form>
 </template>
 
 <script>
