@@ -4,15 +4,13 @@ import Tasks from "../views/Tasks.vue";
 const routes = [
   {
     path: "/",
-    name: "Tasks",
+    name: "AllTasks",
     component: Tasks,
-    children: [
-      {
-        path: "/:completed",
-        name: "CompletedTasks",
-        component: Tasks,
-      },
-    ],
+  },
+  {
+    path: "/:completed",
+    name: "CompletedTasks",
+    component: Tasks,
   },
 ];
 
