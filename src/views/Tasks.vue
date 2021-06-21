@@ -47,11 +47,10 @@ export default {
     TaskList,
   },
   setup() {
-    const router = useRoute();
-    console.log(router);
+    const route = useRoute();
     let completed = computed(() => {
-      if (router.params.completed === "completed") return true;
-      else if (router.params.completed === "uncompleted") return false;
+      if (route.params.completed === "completed") return true;
+      else if (route.params.completed === "uncompleted") return false;
       return null;
     });
 

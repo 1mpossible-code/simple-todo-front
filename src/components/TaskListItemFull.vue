@@ -1,21 +1,17 @@
 <template>
   <div class="task-list-item" :class="{ completed }">
-    <input type="checkbox" v-model="completed" />
-    <div class="content">
-      <router-link :to="`/task/${taskId}`" class="link">
-        {{ task.body }}
-      </router-link>
-    </div>
+    <input type="checkbox" v-model="completed" :class="{ completed }" />
+    <div class="content">{{ task.body }}</div>
     <button class="delete" @click="deleteTask">DELETE</button>
   </div>
 </template>
 
 <script>
-import { computed, ref, watch } from "vue";
 import { useStore } from "vuex";
+import { computed, ref, watch } from "vue";
 
 export default {
-  name: "TasksListItem",
+  name: "TaskListItemFull",
   props: {
     taskId: {
       type: String,
@@ -64,20 +60,8 @@ input {
 }
 
 .completed {
-  background-color: #eee;
-}
-
-.content > .link {
-  text-decoration: none;
-  color: #2c3e50;
-}
-
-.completed > .content > .link {
   color: gray;
-}
-
-.completed .content {
-  text-decoration: line-through;
+  background-color: #eee;
 }
 
 .delete {

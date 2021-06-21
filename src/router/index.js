@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Tasks from "../views/Tasks.vue";
+import TaskPage from "../views/TaskPage.vue";
 
 const routes = [
   {
@@ -11,6 +12,11 @@ const routes = [
     path: "/:completed",
     name: "CompletedTasks",
     component: Tasks,
+  },
+  {
+    path: "/task/:id",
+    name: "TaskPage",
+    component: TaskPage,
   },
 ];
 
