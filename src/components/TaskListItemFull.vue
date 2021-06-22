@@ -1,8 +1,13 @@
 <template>
-  <div class="task-list-item" :class="{ completed }">
-    <input type="checkbox" v-model="completed" :class="{ completed }" />
-    <div class="content">{{ task.body }}</div>
-    <button class="delete" @click="deleteTask">DELETE</button>
+  <div class="container">
+    <div class="back-link-container">
+      <router-link to="/" class="back-link">Back</router-link>
+    </div>
+    <div class="task-list-item" :class="{ completed }">
+      <input type="checkbox" v-model="completed" :class="{ completed }" />
+      <div class="content">{{ task.body }}</div>
+      <button class="delete" @click="deleteTask">DELETE</button>
+    </div>
   </div>
 </template>
 
@@ -45,18 +50,48 @@ export default {
 </script>
 
 <style scoped>
-.task-list-item {
+.container {
+  width: 100%;
   border: 1px solid silver;
-  padding: 0.5rem;
-  margin: 1rem 5rem;
-  border-radius: 10px;
-  display: flex;
-  color: darkcyan;
+  border-radius: 20px;
+  padding: 1%;
+  box-sizing: border-box;
+  min-height: 200px;
+}
+
+.back-link-container {
+  width: 100%;
+  float: left;
+}
+
+.back-link {
+  width: 6rem;
+  height: 2rem;
+  border: 1px solid silver;
+  border-radius: 15px;
+  background-color: darkcyan;
   transition: 0.3s;
+  float: left;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  text-decoration: none;
+  color: #dddddd;
+  margin-bottom: 10px;
+}
+
+.back-link:hover {
+  filter: brightness(110%);
+  transform: scale(1.1);
+}
+
+.task-list-item {
+  display: block;
 }
 
 input {
   margin: 0 20px;
+  float: left;
 }
 
 .completed {
