@@ -1,12 +1,24 @@
 <template>
   <div class="container">
-    <div class="back-link-container">
-      <router-link to="/" class="back-link">Back</router-link>
-    </div>
-    <div class="task-list-item" :class="{ completed }">
-      <input type="checkbox" v-model="completed" :class="{ completed }" />
-      <div class="content">{{ task.body }}</div>
-      <button class="delete" @click="deleteTask">DELETE</button>
+    <header>
+      <div class="back-link-container">
+        <router-link to="/" class="back-link">Back</router-link>
+      </div>
+      <div class="task-id-container">
+        {{ taskId }}
+      </div>
+    </header>
+    <div class="card">
+      <div class="content" :class="{ completed }">
+        <span class="label">Body: </span>
+        <span class="body" :class="completed && 'line-through'">
+          {{ task.body }}
+        </span>
+      </div>
+      <div class="task-list-item">
+        <input type="checkbox" v-model="completed" :class="{ completed }" />
+        <button class="delete" @click="deleteTask">DELETE</button>
+      </div>
     </div>
   </div>
 </template>
@@ -50,22 +62,56 @@ export default {
 </script>
 
 <style scoped>
+header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.7rem;
+}
+
 .container {
+  margin: 2rem auto;
   width: calc(100% / 3);
-  border: 1px solid silver;
+}
+
+.card {
+  width: 100%;
   border-radius: 20px;
-  padding: 1%;
+  padding: 5%;
   box-sizing: border-box;
-  min-height: 200px;
+  min-height: 16rem;
+  -webkit-box-shadow: 0 0 30px 10px rgba(34, 60, 80, 0.1);
+  -moz-box-shadow: 0 0 30px 10px rgba(34, 60, 80, 0.1);
+  box-shadow: 0 0 30px 10px rgba(34, 60, 80, 0.1);
 }
 
 .back-link-container {
-  width: 100%;
+  width: 30%;
+}
+
+.label {
+  transition: 0.3s;
   float: left;
 }
 
+.body {
+  transition: 0.3s;
+  font-weight: 600;
+}
+
+.content {
+  float: left;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.task-id-container {
+  margin-right: 1rem;
+}
+
 .back-link {
-  width: 6rem;
+  width: 100%;
   height: 2rem;
   border: 1px solid silver;
   border-radius: 15px;
@@ -77,7 +123,6 @@ export default {
   display: flex;
   text-decoration: none;
   color: #dddddd;
-  margin-bottom: 10px;
 }
 
 .back-link:hover {
@@ -96,7 +141,11 @@ input {
 
 .completed {
   color: gray;
-  background-color: #eee;
+  font-weight: 400;
+}
+
+.line-through {
+  text-decoration: line-through;
 }
 
 .delete {
