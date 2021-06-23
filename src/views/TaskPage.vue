@@ -7,7 +7,7 @@
 
 <script>
 import { useRoute } from "vue-router";
-import TaskListItemFull from "../components/TaskListItemFull";
+import TaskListItemFull from "../components/TaskListItemCard";
 
 export default {
   name: "Tasks",

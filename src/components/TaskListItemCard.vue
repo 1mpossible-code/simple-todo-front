@@ -51,7 +51,7 @@ export default {
 
 <style scoped>
 .container {
-  width: 100%;
+  width: calc(100% / 3);
   border: 1px solid silver;
   border-radius: 20px;
   padding: 1%;
