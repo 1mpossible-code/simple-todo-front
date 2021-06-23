@@ -57,6 +57,7 @@ export default {
   display: flex;
   color: darkcyan;
   transition: 0.3s;
+  align-items: center;
 }
 
 input {
