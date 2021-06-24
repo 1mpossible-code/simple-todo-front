@@ -15,10 +15,19 @@
           {{ task.body }}
         </span>
       </div>
-      <div class="task-list-item">
-        <input type="checkbox" v-model="completed" :class="{ completed }" />
-        <button class="delete" @click="deleteTask">DELETE</button>
+      <div class="content" :class="{ completed }">
+        <span class="label">Complete: </span>
+        <span class="body">
+          <button
+            class="complete"
+            @click="toggleCompletion"
+            :class="{ completed }"
+          >
+            {{ completed ? "INCOMPLETE" : "COMPLETE" }}
+          </button>
+        </span>
       </div>
+      <button class="delete" @click="deleteTask">DELETE</button>
     </div>
   </div>
 </template>
@@ -26,6 +35,7 @@
 <script>
 import { useStore } from "vuex";
 import { computed, ref, watch } from "vue";
+import router from "../router";
 
 export default {
   name: "TaskListItemFull",
@@ -48,14 +58,20 @@ export default {
       store.dispatch("tasks/toggleComplete", props.taskId);
     });
 
+    const toggleCompletion = () => {
+      completed.value = !completed.value;
+    };
+
     const deleteTask = () => {
       store.dispatch("tasks/destroy", props.taskId);
+      router.push("/");
     };
 
     return {
       completed,
       task,
       deleteTask,
+      toggleCompletion,
     };
   },
 };
@@ -80,7 +96,6 @@ header {
   border-radius: 20px;
   padding: 5%;
   box-sizing: border-box;
-  min-height: 16rem;
   -webkit-box-shadow: 0 0 30px 10px rgba(34, 60, 80, 0.1);
   -moz-box-shadow: 0 0 30px 10px rgba(34, 60, 80, 0.1);
   box-shadow: 0 0 30px 10px rgba(34, 60, 80, 0.1);
@@ -95,6 +110,26 @@ header {
   float: left;
 }
 
+.body > button {
+  width: 30%;
+  height: 2rem;
+  transition: 0.3s;
+  border: 1px solid silver;
+  border-radius: 10px;
+  background-color: darkcyan;
+  color: #eeeeee;
+}
+
+.body > button.completed {
+  background-color: #dddddd;
+  color: #807e7e;
+}
+
+.body > button:hover {
+  filter: brightness(85%);
+  transform: scale(1.1);
+}
+
 .body {
   transition: 0.3s;
   font-weight: 600;
@@ -103,7 +138,7 @@ header {
 .content {
   float: left;
   width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 2rem;
 }
 
 .task-id-container {
@@ -134,11 +169,6 @@ header {
   display: block;
 }
 
-input {
-  margin: 0 20px;
-  float: left;
-}
-
 .completed {
   color: gray;
   font-weight: 400;
@@ -149,8 +179,6 @@ input {
 }
 
 .delete {
-  margin-left: auto;
-  float: right;
   color: red;
   border: none;
   background: none;
