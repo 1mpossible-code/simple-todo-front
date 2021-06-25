@@ -19,9 +19,7 @@ export default {
   },
   components: { TasksListItem },
   setup(props) {
-    console.log(props.completed);
     const store = useStore();
-    console.log(store.getters["tasks/getCompleted"]);
     const tasks = computed(() => {
       if (props.completed === null) return store.state.tasks.all;
       if (props.completed) return store.getters["tasks/getCompleted"];

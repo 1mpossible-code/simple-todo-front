@@ -34,7 +34,7 @@
 
 <script>
 import { useStore } from "vuex";
-import { computed, ref, watch } from "vue";
+import { computed } from "vue";
 import router from "../router";
 
 export default {
@@ -51,15 +51,10 @@ export default {
     // Create computed task getter depending on props id
     const task = computed(() => store.getters["tasks/getById"](props.taskId));
     // Create completed model
-    const completed = ref(task.value.completed);
-    // Watch for changing completed module and toggle the task.completed value depending on it
-    watch(completed, () => {
-      // Toggle completed value
-      store.dispatch("tasks/toggleComplete", props.taskId);
-    });
+    const completed = computed(() => task.value.completed);
 
     const toggleCompletion = () => {
-      completed.value = !completed.value;
+      store.dispatch("tasks/toggleComplete", props.taskId);
     };
 
     const deleteTask = () => {
