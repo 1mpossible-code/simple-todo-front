@@ -62,7 +62,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .completed {
   color: gray;
   font-weight: 400;
@@ -128,5 +128,4 @@ export default {
   -moz-box-shadow: 0 0 30px 10px rgba(34, 60, 80, 0.1);
   box-shadow: 0 0 30px 10px rgba(34, 60, 80, 0.1);
 }
-
 </style>
