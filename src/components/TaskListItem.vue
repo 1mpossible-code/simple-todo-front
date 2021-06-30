@@ -6,16 +6,20 @@
         {{ task.body }}
       </router-link>
     </div>
-    <button class="delete" @click="deleteTask">DELETE</button>
+    <div class="delete-container">
+      <delete-task-button :task-id="taskId" />
+    </div>
   </div>
 </template>
 
 <script>
 import { computed, ref, watch } from "vue";
 import { useStore } from "vuex";
+import DeleteTaskButton from "./DeleteTaskButton";
 
 export default {
   name: "TasksListItem",
+  components: { DeleteTaskButton },
   props: {
     taskId: {
       type: String,
@@ -35,14 +39,9 @@ export default {
       store.dispatch("tasks/toggleComplete", props.taskId);
     });
 
-    const deleteTask = () => {
-      store.dispatch("tasks/destroy", props.taskId);
-    };
-
     return {
       completed,
       task,
-      deleteTask,
     };
   },
 };
@@ -81,16 +80,8 @@ input {
   text-decoration: line-through;
 }
 
-.delete {
-  margin-left: auto;
+.delete-container {
   float: right;
-  color: red;
-  border: none;
-  background: none;
-  cursor: pointer;
-}
-
-.delete:hover {
-  text-decoration: underline;
+  margin-left: auto;
 }
 </style>
