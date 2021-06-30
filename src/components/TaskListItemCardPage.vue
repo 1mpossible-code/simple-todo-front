@@ -1,18 +1,18 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="task">
     <header>
       <Link path="/" title="Back" />
-      <div class="task-id-container">
-        {{ taskId }}
-      </div>
+      <div class="task-id-container">{{ task._id }}</div>
     </header>
-    <task-list-item-card :task-id="taskId" />
+    <task-list-item-card :task-id="task._id" />
   </div>
 </template>
 
 <script>
 import TaskListItemCard from "./TaskListItemCard";
 import Link from "./Link";
+import { useStore } from "vuex";
+import { computed, onMounted } from "vue";
 
 export default {
   name: "TaskListItemFull",
@@ -22,6 +22,21 @@ export default {
       type: String,
       required: true,
     },
+  },
+  setup(props) {
+    const store = useStore();
+
+    onMounted(async () => {
+      if (store.state.tasks.all.length === 0) {
+        await store.dispatch("tasks/fetch");
+      }
+    });
+
+    const task = computed(() => store.getters["tasks/getById"](props.taskId));
+
+    return {
+      task,
+    };
   },
 };
 </script>
