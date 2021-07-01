@@ -28,7 +28,9 @@ export default {
     });
 
     onMounted(async () => {
-      await store.dispatch("tasks/fetch");
+      if (store.state.tasks.all.length === 0) {
+        await store.dispatch("tasks/fetch");
+      }
     });
 
     return {
