@@ -16,7 +16,7 @@ Front part of Simple TODO Application. Needs [api](https://github.com/1mpossible
 ## Description
 
 Simple TODO Front is a part of SPA application that manage your tasks.
-It uses [Simple TODO Api](https://github.com/1mpossible-code/simple-todo-api) to work.
+It uses [Simple TODO Api](https://github.com/1mpossible-code/simple-todo-api#simple-todo-api) to work.
 
 ## Installation
 
@@ -26,7 +26,7 @@ It uses [Simple TODO Api](https://github.com/1mpossible-code/simple-todo-api) to
 git clone https://github.com/1mpossible-code/simple-todo-front
 ```
 
-* Clone [api](https://github.com/1mpossible-code/simple-todo-api) repo
+* Clone [api](https://github.com/1mpossible-code/simple-todo-api#simple-todo-api) repo
 ```shell
 git clone https://github.com/1mpossible-code/simple-todo-api
 ```
@@ -62,7 +62,8 @@ npm run serve
 > And api on http://localhost:3000/tasks/
 
 #### Configuration
-You can specify your own api server in `.env` file. [Example](.env.example)
+
+You can specify your own api url in `.env` file. [Example](.env.example)
 
 ## Contributing
 
