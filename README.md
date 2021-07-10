@@ -6,6 +6,8 @@ Front part of Simple TODO Application. Needs [api](https://github.com/1mpossible
 
 * [Description](#description)
 * [Installation](#installation)
+  * [Dependencies](#dependencies)
+  * [Configuration](#configuration)
 * [Usage](#usage)
 * [Contributing](#contributing)
 * [Credits](#credits)
