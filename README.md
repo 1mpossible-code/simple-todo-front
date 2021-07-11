@@ -63,7 +63,7 @@ npm run serve
 > You will have front on http://localhost:8080/
 > And api on http://localhost:3000/tasks/
 
-#### Configuration
+### Configuration
 
 You can specify your own api url in `.env` file. [Example](.env.example)
 
