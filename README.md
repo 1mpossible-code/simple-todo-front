@@ -61,7 +61,7 @@ npm run serve
 ```
 
 > You will have front on http://localhost:8080/
-> And api on http://localhost:3000/tasks/
+> And api on http://localhost:3000/api/
 
 ### Configuration
 
